@@ -53,6 +53,7 @@ class AppleGame {
     this.running = false;
     this.paused = false;
     this.isResolving = false;
+    this.updatedCells = [];
     this.timerId = null;
     this.resolveTimeout = null;
     this.messageTimeout = null;
@@ -116,6 +117,7 @@ class AppleGame {
     this.timeEl.textContent = String(this.timeLeft);
     this.statusEl.textContent = this.getStatusText();
     this.pauseButton.textContent = this.paused ? "재개" : "일시정지";
+    this.syncGameStateStyles();
   }
 
   getStatusText() {
@@ -132,6 +134,32 @@ class AppleGame {
     }
 
     return "진행 중";
+  }
+
+  getStateKey() {
+    if (!this.running) {
+      return "idle";
+    }
+
+    if (this.timeLeft <= 0) {
+      return "finished";
+    }
+
+    if (this.paused) {
+      return "paused";
+    }
+
+    if (this.isResolving) {
+      return "updating";
+    }
+
+    return "running";
+  }
+
+  syncGameStateStyles() {
+    const state = this.getStateKey();
+    this.root.dataset.state = state;
+    this.boardEl.dataset.state = state;
   }
 
   updateUi(message) {
@@ -425,6 +453,8 @@ class AppleGame {
 
   applySuccessfulMatch(cells) {
     this.isResolving = true;
+    this.updatedCells = [];
+    const previousBoard = this.board.map((row) => row.slice());
     cells.forEach(({ row, col, cell }) => {
       this.board[row][col] = null;
       if (cell) {
@@ -434,15 +464,49 @@ class AppleGame {
 
     this.resolveTimeout = window.setTimeout(() => {
       this.collapseBoard();
+      this.updatedCells = this.getChangedCells(previousBoard, this.board);
       this.score += 1;
       this.best = Math.max(this.best, this.score);
       localStorage.setItem(STORAGE_KEY, String(this.best));
       this.renderBoard();
+      this.flashUpdatedCells();
       this.renderStats();
       this.isResolving = false;
       this.resolveTimeout = null;
       this.setMessage("성공! 합이 10이라 사과를 제거했습니다.", true);
     }, 180);
+  }
+
+  getChangedCells(previousBoard, nextBoard) {
+    const changed = [];
+
+    for (let row = 0; row < this.rows; row += 1) {
+      for (let col = 0; col < this.cols; col += 1) {
+        if (previousBoard[row][col] !== nextBoard[row][col]) {
+          changed.push({ row, col });
+        }
+      }
+    }
+
+    return changed;
+  }
+
+  flashUpdatedCells() {
+    if (!this.updatedCells.length) {
+      return;
+    }
+
+    this.updatedCells.forEach(({ row, col }) => {
+      const cell = this.getCellElement(row, col);
+      if (!cell) {
+        return;
+      }
+
+      cell.classList.add("is-updated");
+      window.setTimeout(() => {
+        cell.classList.remove("is-updated");
+      }, 520);
+    });
   }
 
   collapseBoard() {

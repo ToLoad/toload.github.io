@@ -13,20 +13,33 @@
   <body>
     <a class="skip-link" href="#main">본문 바로가기</a>
     <header class="site-header">
-      <div class="brand" aria-label="사이트 브랜드">
-        <span class="brand-mark" aria-hidden="true">TL</span>
-        <div>
-          <p class="brand-kicker">Portfolio</p>
-          <h1 class="brand-title">ToLoad</h1>
+      <div class="site-header-shell">
+        <a class="brand" href="index.html" aria-label="ToLoad 홈으로">
+          <span class="brand-mark" aria-hidden="true">TL</span>
+          <span class="brand-copy">
+            <span class="brand-kicker">Portfolio</span>
+            <span class="brand-title">ToLoad</span>
+          </span>
+        </a>
+
+        <button
+          class="site-menu-button"
+          type="button"
+          aria-controls="site-menu"
+          aria-expanded="false"
+          aria-label="메뉴 열기"
+        >
+          ⋮
+        </button>
+
+        <div class="site-menu-panel" id="site-menu" hidden>
+          <nav class="site-nav site-nav--panel" aria-label="주요 페이지">
+            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="nav-link nav-link--games" href="games.html">Games</a>
+          </nav>
         </div>
       </div>
-      <nav class="site-nav" aria-label="주요 페이지">
-        <a class="nav-link" href="index.html">Home</a>
-        <a class="nav-link" href="about.html">About</a>
-        <a class="nav-link" href="projects.html">Projects</a>
-        <a class="nav-link" href="contact.html">Contact</a>
-        <a class="nav-link nav-link--games" href="games.html">Games</a>
-      </nav>
     </header>
     <main id="main">
       <section class="panel game-panel game-page">
@@ -97,8 +110,9 @@
               <div class="info-card">
                 <h3>게임 메모</h3>
                 <p class="muted">
-                  사과게임의 세부 규칙은 Step 1 요구사항과 충돌이 없는 범위에서
-                  구현했습니다. 추가 규칙은 [사람 확인 필요]로 기록합니다.
+                  사과게임의 현재 규칙은 합이 10이 되는 영역을 제거하고, 남은
+                  칸을 아래로 정리한 뒤 새 숫자를 채우는 방식입니다. 세부 규칙
+                  조정은 [사람 확인 필요]로 기록합니다.
                 </p>
               </div>
             </aside>
@@ -108,5 +122,23 @@
         </div>
       </section>
     </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="footer-flow">
+        <p class="section-label">Contact</p>
+        <h2>연락처</h2>
+        <p class="footer-note">
+          게임 페이지에서도 확인할 수 있도록 Email: [사람 확인 필요], GitHub: [사람 확인 필요], Links: [사람 확인 필요]를 문단형으로 정리했습니다.
+        </p>
+        <p class="footer-links-inline">
+          <a href="index.html">Home</a>
+          <span aria-hidden="true">·</span>
+          <a href="projects.html">Projects</a>
+          <span aria-hidden="true">·</span>
+          <a href="games.html">Games</a>
+        </p>
+        <p class="footer-copy">© 2026 ToLoad · Android Developer Portfolio</p>
+      </div>
+    </footer>
   </body>
 </html>
