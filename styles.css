@@ -489,6 +489,13 @@ main {
   gap: 1rem;
 }
 
+.game-stage {
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 486px);
+  justify-self: center;
+}
+
 .game-toolbar {
   display: grid;
   gap: 1rem;
@@ -524,6 +531,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  justify-content: center;
 }
 
 .game-content {
@@ -713,11 +721,14 @@ main {
 .game-side {
   display: grid;
   gap: 1rem;
+  margin-top: clamp(2rem, 5vw, 4rem);
 }
 
 .game-message {
   min-height: 1.8rem;
   color: #ff98ef;
+  text-align: center;
+  width: 100%;
 }
 
 .site-footer {
@@ -748,6 +759,32 @@ main {
   margin: 0;
   color: rgba(224, 218, 247, 0.82);
   line-height: 1.75;
+}
+
+.footer-contact-line {
+  margin: 0;
+  color: rgba(248, 246, 255, 0.92);
+  line-height: 1.7;
+}
+
+.footer-contact-line a {
+  font-weight: 700;
+  color: inherit;
+}
+
+.footer-symbol {
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.55rem;
+  border: 1px solid rgba(248, 246, 255, 0.32);
+  border-radius: 999px;
+  color: rgba(248, 246, 255, 0.8);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  vertical-align: text-top;
 }
 
 .footer-links-inline {
@@ -834,6 +871,10 @@ main {
   .content-grid,
   .game-content {
     grid-template-columns: 1fr;
+  }
+
+  .game-side {
+    margin-top: 0;
   }
 
   .card-grid {
