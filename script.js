@@ -61,13 +61,19 @@ function updateHeaderState() {
   const isCompact = window.scrollY > 24;
   siteHeader.classList.toggle("site-header--compact", isCompact);
 
-  if (!isCompact) {
-    siteHeader.classList.remove("site-header--menu-open");
-    if (menuPanel) {
-      menuPanel.hidden = true;
-    }
-    if (menuButton) {
-      menuButton.setAttribute("aria-expanded", "false");
+  if (menuPanel) {
+    if (isCompact) {
+      const isOpen = siteHeader.classList.contains("site-header--menu-open");
+      menuPanel.hidden = !isOpen;
+      if (menuButton) {
+        menuButton.setAttribute("aria-expanded", String(isOpen));
+      }
+    } else {
+      siteHeader.classList.remove("site-header--menu-open");
+      menuPanel.hidden = false;
+      if (menuButton) {
+        menuButton.setAttribute("aria-expanded", "false");
+      }
     }
   }
 }
@@ -82,7 +88,7 @@ function closeMenu() {
   }
 
   siteHeader.classList.remove("site-header--menu-open");
-  menuPanel.hidden = true;
+  menuPanel.hidden = !siteHeader.classList.contains("site-header--compact");
   menuButton.setAttribute("aria-expanded", "false");
 }
 

@@ -34,7 +34,7 @@
 | ID | 요청 분류 | 요약 | 현재 동작 | 기대 동작 | 위험도 | HITL |
 |---|---|---|---|---|---|---|
 | CR-001 | UI_UX, RESPONSIVE, NAVIGATION | 스크롤 시 상단 메뉴 축소 | 헤더 높이와 메뉴 크기가 고정 | 스크롤 내릴 때 상단 메뉴가 더 컴팩트해짐 | LOW | 아니오 |
-| CR-002 | CONTENT, UI_UX | 안드로이드 개발자용 문구 채우기 | 여러 섹션에 placeholder와 `[사람 확인 필요]`가 남아 있음 | 프로페셔널하고 자연스러운 소개/설명 문구로 채움 | MEDIUM | 예 |
+| CR-002 | CONTENT, UI_UX | 안드로이드 개발자용 문구 채우기 | 여러 섹션에 placeholder와 `확정 전 문구`가 남아 있음 | 프로페셔널하고 자연스러운 소개/설명 문구로 채움 | MEDIUM | 예 |
 | CR-003 | INFORMATION_ARCHITECTURE, MULTI_PAGE_STRUCTURE, NAVIGATION, REFACTOR | Home과 About 통합 | Home과 About이 분리된 페이지 | 하나의 일관된 진입 구조로 합쳐짐 | HIGH | 예 |
 | CR-004 | INFORMATION_ARCHITECTURE, MULTI_PAGE_STRUCTURE, CONTENT, NAVIGATION | Contact를 footer로 이동 | Contact가 별도 페이지와 상단 링크로 존재 | 각 페이지 하단 footer에서 연락 정보 노출 | MEDIUM | 예 |
 | CR-005 | GAME_STATE, UI_UX, ACCESSIBILITY | 게임 비활성 상태 보드 tint | 시작 전/일시정지/종료 상태가 텍스트 중심으로만 구분됨 | 비활성 상태가 보드 색상으로 즉시 보임 | LOW-MEDIUM | 아니오 |
@@ -64,17 +64,17 @@
 - 회귀 테스트: nav 탭, skip link, sticky 동작, 모바일 터치 범위.
 - 위험도: `LOW`
 - 배포 필요 여부: `YES`
-- 사람 확인 필요 항목: 없음
+- 확인 메모: 없음
 
 ### CR-002 — 안드로이드 개발자용 문구 채우기
 
 - 사용자 요청 원문: `글자를 채워야하는 부분들에는 "안드로이드 개발자"에 맞는 적당한 말들을 만들어서 채워줘`
 - 요청 요약: 비어 있는 소개/설명 문구를 안드로이드 개발자 톤에 맞게 채운다.
 - 요청 분류: `CONTENT`, `UI_UX`
-- 현재 동작: 여러 섹션에 placeholder, `[사람 확인 필요]`, 내용 빈칸이 있다.
+- 현재 동작: 여러 섹션에 placeholder, `확정 전 문구`, 내용 빈칸이 있다.
 - 기대 동작: 안드로이드 개발자라는 역할을 반영한 자연스러운 소개 문장과 섹션 설명이 들어간다.
 - 재현 방법: 각 페이지를 열어 placeholder 텍스트를 확인한다.
-- 근거 자료: 현재 HTML 파일의 placeholder와 `[사람 확인 필요]` 문구.
+- 근거 자료: 현재 HTML 파일의 placeholder와 `확정 전 문구` 표현.
 - 수정 대상 기능: 프로필 소개, 프로젝트 설명, About/Projects/Contact 문구.
 - 예상 수정 파일: `index.html`, `about.html`, `projects.html`, `contact.html`, 필요 시 `styles.css`.
 - 변경 허용 범위: 일반적인 자기소개 문구, 기술 스택 표현, 섹션 제목 보강.
@@ -82,12 +82,12 @@
 - 선행 작업: Home/About 구조가 어떻게 합쳐질지 결정.
 - 후속 작업: Contact footer에 들어갈 실제 노출 수준을 결정.
 - 다른 Change Item과의 의존성: `CR-003`, `CR-004`와 내용 배치가 연결됨.
-- 완료 기준: 모든 placeholder가 역할에 맞는 문장으로 대체되거나 `[사람 확인 필요]`로 명확히 남는다.
+- 완료 기준: 모든 placeholder가 역할에 맞는 문장으로 대체되거나 `확정 전 문구`로 명확히 남는다.
 - 검증 방법: 각 페이지를 열어 텍스트 누락/과장 여부를 검수.
 - 회귀 테스트: 가독성, 모바일 줄바꿈, 장문 텍스트 오버플로.
 - 위험도: `MEDIUM`
 - 배포 필요 여부: `YES`
-- 사람 확인 필요 항목: 실제 이름, 실제 경력, 실제 프로젝트, 실제 연락처
+- 확인 메모: 실제 이름, 실제 경력, 실제 프로젝트, 실제 연락처
 
 ### CR-003 — Home과 About 통합
 
@@ -110,7 +110,7 @@
 - 회귀 테스트: Projects/Games 링크, 모바일 nav, 404 여부.
 - 위험도: `HIGH`
 - 배포 필요 여부: `YES`
-- 사람 확인 필요 항목: About을 완전히 제거할지, 섹션 앵커/리디렉션으로 남길지
+- 확인 메모: About을 완전히 제거할지, 섹션 앵커/리디렉션으로 남길지
 
 ### CR-004 — Contact를 footer로 이동
 
@@ -133,7 +133,7 @@
 - 회귀 테스트: 페이지 높이, 모바일 하단 여백, anchor 링크.
 - 위험도: `MEDIUM`
 - 배포 필요 여부: `YES`
-- 사람 확인 필요 항목: footer에 넣을 실제 연락 정보의 공개 범위, contact.html 유지 여부
+- 확인 메모: footer에 넣을 실제 연락 정보의 공개 범위, contact.html 유지 여부
 
 ### CR-005 — 게임 비활성 상태 보드 tint
 
@@ -156,7 +156,7 @@
 - 회귀 테스트: 입력 가능 상태에서 조작성, 모바일 화면, 점수판 가독성.
 - 위험도: `LOW-MEDIUM`
 - 배포 필요 여부: `YES`
-- 사람 확인 필요 항목: tint 강도와 색감 선호
+- 확인 메모: tint 강도와 색감 선호
 
 ### CR-006 — 10 합 영역 제거 후 숫자 변화가 의도된 동작인지 확인
 
@@ -179,7 +179,7 @@
 - 회귀 테스트: 점수 증가, 재시작, 터치/키보드 조작.
 - 위험도: `MEDIUM`
 - 배포 필요 여부: `YES`
-- 사람 확인 필요 항목: 셀 이동을 의도한 것인지, 새 칸만 갱신할 것인지
+- 확인 메모: 셀 이동을 의도한 것인지, 새 칸만 갱신할 것인지
 
 ### CR-007 — 새롭게 업데이트되는 영역 이펙트 추가
 
@@ -202,7 +202,7 @@
 - 회귀 테스트: 입력 지연, 레이아웃 이동, 색 대비, 콘솔 오류.
 - 위험도: `LOW-MEDIUM`
 - 배포 필요 여부: `YES`
-- 사람 확인 필요 항목: 이펙트 강도와 스타일 선호
+- 확인 메모: 이펙트 강도와 스타일 선호
 
 ## Ordered execution plan
 
@@ -218,7 +218,7 @@
 
 | Loop ID | Connected Change Item | Target | Input | Act | Observe | Reason | Verifier | Completion Criteria | Retry Policy | Stop | HITL | Expected files | Predecessor | Next Loop | Status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| L-001 | CR-003 + CR-004 | 현재 정보 구조와 공통 레이아웃 정책 확정 | current site, nav, AORR, MEMORY, live URL | 현재 멀티페이지 구조와 고정 contact page를 구조적으로 정리 | broken links, nav consistency, footer placement risk | 구조 변경은 다른 작업의 전제이기 때문 | 브라우저/HTML 검수 | 통합 방향이 문서화되고 링크 정책이 명확함 | one root cause only | structural plan finalized | [사람 확인 필요] about/contact alias policy | `index.html`, `about.html`, `contact.html`, shared layout files | none | L-002 | READY |
+| L-001 | CR-003 + CR-004 | 현재 정보 구조와 공통 레이아웃 정책 확정 | current site, nav, AORR, MEMORY, live URL | 현재 멀티페이지 구조와 고정 contact page를 구조적으로 정리 | broken links, nav consistency, footer placement risk | 구조 변경은 다른 작업의 전제이기 때문 | 브라우저/HTML 검수 | 통합 방향이 문서화되고 링크 정책이 명확함 | one root cause only | structural plan finalized | about/contact alias policy (확정 전) | `index.html`, `about.html`, `contact.html`, shared layout files | none | L-002 | READY |
 | L-002 | CR-002 | Android developer용 콘텐츠 초안 작성 | current placeholders, page contents | placeholder text를 역할 기반 문구로 채움 | factual claims, tone, length, wrapping | 콘텐츠가 구조 이후에 배치되어야 충돌이 적음 | manual content review | placeholder가 유의미한 문장으로 채워짐 | one content cluster only | content draft accepted | actual personal facts | HTML content files | L-001 | L-003 | HITL_REQUIRED |
 | L-003 | CR-006 | 게임 10 합 후 숫자 변화 규칙 확정 | game.js behavior, user observation | current collapse behavior를 검증/문서화 | board value stability, column collapse, new cell generation | game logic ambiguity must be resolved before effects | browser playthrough + code inspection | intended rule is confirmed and reproducible | one game rule only | same fingerprint repeated twice or user confirms rule | whether cell shifting is intended | `game.js` | L-002 | L-004 | HITL_REQUIRED |
 | L-004 | CR-005 | 게임 비활성 상태 tint | current game states | board overlay/state class 추가 | visual distinction of idle/paused/gameover | improves clarity before visual polish | browser state check | inactive states are immediately visible | one state family only | passes on desktop/mobile | tint strength | `game.js`, `styles.css` | L-003 | L-005 | READY |
@@ -250,7 +250,7 @@
 | Change Item | Status | Notes |
 |---|---|---|
 | CR-001 | PASSED | 스크롤 시 상단 메뉴 축소 동작을 스크립트와 스타일로 연결했고, 모의 검증에서 compact 클래스 전환을 확인했다. |
-| CR-002 | PASSED | 안드로이드 개발자 톤의 설명 문구로 채웠고, 실제 개인 정보는 `[사람 확인 필요]`로 유지했다. |
+| CR-002 | PASSED | 안드로이드 개발자 톤의 설명 문구로 채웠고, 실제 개인 정보는 확정 전 문구로 유지했다. |
 | CR-003 | PASSED | Home과 About을 index 기준으로 통합하고 about.html은 redirect alias로 정리했다. |
 | CR-004 | PASSED | Contact를 각 페이지 footer로 이동하고 contact.html은 redirect alias로 정리했다. |
 | CR-005 | PASSED | 게임 상태별 tint를 추가해 시작 전/대기/종료 상태가 더 명확해졌다. |
@@ -272,7 +272,7 @@
   - `1`
 - 완료 또는 중지 이유:
   - 로컬 구현 및 검증 완료, 재배포 승인 대기
-- 사람 확인 필요 항목:
+- 확인 메모:
   - 실제 이름/경력/연락처/프로젝트 사실 정보
   - About/Contact alias를 유지할지 여부
   - 게임 숫자 갱신 규칙 변경 여부
@@ -288,6 +288,50 @@
 | CR-012 | 하단 Footer는 위쪽 섹션과 동일한 네모난 형태가 아니라 아래에 현재 전체 배경색보다 더 흐린색으로 줄글 형태로 보였으면 좋겠어 | footer를 연한 문단형 strip으로 변경 | `UI_UX`, `CONTENT` | `PASSED` | 박스형 footer shell 제거, 밝은 배경의 문단형 footer flow로 변경 |
 | CR-013 | 상단 네비바도 footer처럼 전체영역을 사용하게 해줘 | full-width header band | `UI_UX`, `NAVIGATION`, `RESPONSIVE` | `PASSED` | header를 full-width band로 확장하고 inner shell만 centered |
 | CR-014 | 상단 네비바가 축소되었을 땐 배경색이 없게해줘 | compact header transparency | `UI_UX`, `NAVIGATION` | `PASSED` | compact 상태에서 header background와 shadow 제거 |
+
+## New visual redesign request
+
+### Request ID
+
+`CRQ-20260714-05`
+
+### User request summary
+
+- 우주 느낌의 포스터형 랜딩으로 바꾸고 싶다.
+- 섹션형이 아니라 이미지처럼 강한 비주얼 중심 형태를 원한다.
+- 헤더, 본문, footer, 게임 페이지까지 같은 우주 테마 언어를 공유해야 한다.
+
+### Change items
+
+| ID | 요청 원문 | 요청 요약 | 분류 | 현재 상태 | 비고 |
+|---|---|---|---|---|---|
+| CR-015 | 이런 우주느낌 형태로 | 사이트 전반의 우주 테마 기반을 구축 | `UI_UX`, `REFACTOR`, `RESPONSIVE` | `PASSED` | 색상/배경/광원/타이포 기본 토대 |
+| CR-016 | 이런 우주느낌 형태로 | Home을 포스터형 히어로로 재구성 | `UI_UX`, `INFORMATION_ARCHITECTURE` | `BLOCKED` | CR-015 이후 |
+| CR-017 | 이런 우주느낌 형태로 | Projects/Games를 비주얼 브라우징형 패널로 전환 | `UI_UX`, `MULTI_PAGE_STRUCTURE` | `BLOCKED` | CR-015 이후 |
+| CR-018 | 이런 우주느낌 형태로 | footer와 보조 UI를 우주 테마에 맞게 연동 | `UI_UX`, `CONTENT` | `BLOCKED` | CR-015 이후 |
+
+### Loop order
+
+1. `L-007` 우주 테마 기반 색/배경/광원 설정
+2. `L-008` 포스터형 히어로 재구성
+3. `L-009` 카드/패널 비주얼 재배치
+4. `L-010` footer 및 보조 UI 우주 테마 정렬
+
+### Completion criteria
+
+- 페이지 배경이 우주 느낌의 다크 톤으로 바뀐다.
+- 텍스트와 패널이 네온/보라 계열로 통일된다.
+- 기존 기능, 링크, 게임 조작은 유지된다.
+- 모바일과 데스크톱에서 배경과 대비가 유지된다.
+
+### Risk / HITL
+
+- 위험도: `MEDIUM`
+- 확인 메모: 실제로 원하는 우주 톤의 강도, 포스터형 레이아웃 범위, 이미지/일러스트 추가 여부
+
+### Current planning status
+
+`CHANGE_PLANNED`
 
 ### Follow-up validation
 
@@ -312,6 +356,6 @@
   - compact 상태에서 header 배경이 투명인지 확인
 - Retry 횟수:
   - `1`
-- 사람 확인 필요 항목:
+- 확인 메모:
   - footer 링크 문구의 추가 조정 여부
   - 더보기 메뉴의 추가 항목 노출 여부

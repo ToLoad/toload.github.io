@@ -36,6 +36,7 @@ class AppleGame {
     this.timeEl = root.querySelector("[data-time]");
     this.statusEl = root.querySelector("[data-status]");
     this.messageEl = root.querySelector("[data-message]");
+    this.boardOverlayEl = root.querySelector("[data-board-overlay]");
     this.startButton = root.querySelector("[data-start]");
     this.pauseButton = root.querySelector("[data-pause]");
     this.restartButton = root.querySelector("[data-restart]");
@@ -118,6 +119,7 @@ class AppleGame {
     this.statusEl.textContent = this.getStatusText();
     this.pauseButton.textContent = this.paused ? "재개" : "일시정지";
     this.syncGameStateStyles();
+    this.renderBoardOverlay();
   }
 
   getStatusText() {
@@ -160,6 +162,41 @@ class AppleGame {
     const state = this.getStateKey();
     this.root.dataset.state = state;
     this.boardEl.dataset.state = state;
+  }
+
+  renderBoardOverlay() {
+    if (!this.boardOverlayEl) {
+      return;
+    }
+
+    const state = this.getStateKey();
+    const overlayState =
+      state === "idle" ? "idle" : state === "finished" ? "finished" : state === "paused" ? "paused" : "running";
+
+    this.boardOverlayEl.dataset.state = overlayState;
+
+    if (overlayState === "idle") {
+      this.boardOverlayEl.innerHTML = `
+        <strong>시작 전</strong>
+      `;
+      return;
+    }
+
+    if (overlayState === "finished") {
+      this.boardOverlayEl.innerHTML = `
+        <strong>게임 종료</strong>
+      `;
+      return;
+    }
+
+    if (overlayState === "paused") {
+      this.boardOverlayEl.innerHTML = `
+        <strong>일시정지</strong>
+      `;
+      return;
+    }
+
+    this.boardOverlayEl.innerHTML = "";
   }
 
   updateUi(message) {
