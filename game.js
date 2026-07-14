@@ -26,7 +26,7 @@ function rectContains(rect, row, col) {
   return row >= rect.top && row <= rect.bottom && col >= rect.left && col <= rect.right;
 }
 
-export class AppleGame {
+class AppleGame {
   constructor(root) {
     this.root = root;
     this.boardEl = root.querySelector("[data-board]");
@@ -461,3 +461,5 @@ export class AppleGame {
     }
   }
 }
+
+window.AppleGame = AppleGame;

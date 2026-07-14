@@ -174,11 +174,19 @@ main {
   align-content: center;
 }
 
+.single-column {
+  grid-template-columns: 1fr;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(290px, 0.9fr);
   gap: 1rem;
   align-items: stretch;
+}
+
+.page-hero {
+  min-height: calc(100vh - 8.5rem);
 }
 
 .hero,
