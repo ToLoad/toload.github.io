@@ -168,11 +168,22 @@ main {
   scroll-margin-top: 6.5rem;
 }
 
+.section-page {
+  min-height: calc(100vh - 8.5rem);
+  display: grid;
+  align-content: center;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(290px, 0.9fr);
   gap: 1rem;
   align-items: stretch;
+}
+
+.hero,
+.section-page {
+  gap: 1rem;
 }
 
 .hero-copy {
