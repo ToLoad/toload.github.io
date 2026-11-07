@@ -1,128 +1,280 @@
-<!doctype html>
-<html lang="ko" data-page="home">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ToLoad | Home</title>
-    <meta
-      name="description"
-      content="홈 프로필이 먼저 보이는 프로페셔널 웹사이트"
-    />
-    <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main">본문 바로가기</a>
 
-    <header class="site-header">
-      <div class="site-header-shell">
-        <a class="brand" href="index.html" aria-label="ToLoad 홈으로">
-          <span class="brand-mark" aria-hidden="true">TL</span>
-          <span class="brand-copy">
-            <span class="brand-kicker">Portfolio</span>
-            <span class="brand-title">ToLoad</span>
-          </span>
-        </a>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>Welcome Fireworks</title>
 
-        <button
-          class="site-menu-button"
-          type="button"
-          aria-controls="site-menu"
-          aria-expanded="false"
-          aria-label="메뉴 열기"
-        >
-          ⋮
-        </button>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        <div class="site-menu-panel" id="site-menu" hidden>
-          <nav class="site-nav site-nav--panel" aria-label="주요 페이지">
-            <a class="nav-link" href="index.html">Home</a>
-            <a class="nav-link" href="projects.html">Projects</a>
-            <a class="nav-link nav-link--games" href="games.html">Games</a>
-          </nav>
-        </div>
-      </div>
-    </header>
+    body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(
+        ellipse at center,
+        #182446 0%,
+        #080d20 65%,
+        #030510 100%
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
 
-    <main id="main">
-      <section class="panel hero page-hero">
-        <div class="hero-copy">
-          <p class="eyebrow">GitHub Pages · Static Site</p>
-          <h2>안드로이드 개발자의 프로필이 가장 먼저 보이는 정적 포트폴리오</h2>
-          <p class="lead">
-            사용자 흐름, 화면 구성, 릴리즈 안정성을 함께 고민하는 안드로이드
-            개발자용 포트폴리오입니다. Home과 About은 하나의 시작점으로
-            통합했습니다.
-          </p>
-          <div class="hero-actions">
-            <a class="button button--primary" href="#about">About 보기</a>
-            <a class="button button--secondary" href="games.html">게임 보기</a>
-          </div>
-        </div>
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
 
-        <aside class="hero-card" aria-label="소개 요약">
-          <p class="section-label">Profile</p>
-          <h3>안드로이드 앱의 흐름을 깔끔하게 정리하는 개발자</h3>
-          <ul class="plain-list">
-            <li>한 줄 소개: 사용자 경험과 유지보수를 함께 챙깁니다.</li>
-            <li>핵심 역량: UI 구조화, 상태 관리, 릴리즈 안정성</li>
-            <li>관심 분야: 모바일 UX, 성능, 자동화된 품질 확인</li>
-          </ul>
-        </aside>
-      </section>
+    .welcome {
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      z-index: 1;
 
-      <section class="panel content-grid" id="about">
-        <div class="section-stack">
-          <div class="section-heading">
-            <p class="section-label">About</p>
-            <h2>안드로이드 개발에 맞는 프로필 섹션</h2>
-            <p>
-              화면 설계, 동작의 일관성, 배포 후 안정성을 함께 보는 안드로이드
-              개발자 소개 영역입니다. 실제 이름과 경력은 확인된 뒤 채우면
-              됩니다.
-            </p>
-          </div>
+      font-size: clamp(45px, 12vw, 120px);
+      font-weight: bold;
+      color: white;
 
-          <div class="card-grid">
-            <article class="feature-card">
-              <h3>앱 구조</h3>
-              <p>불필요한 복잡도를 줄이고, 화면 전환과 상태를 읽기 쉽게 정리합니다.</p>
-            </article>
-            <article class="feature-card">
-              <h3>사용자 흐름</h3>
-              <p>처음 보는 사용자도 자연스럽게 이해할 수 있는 인터랙션을 우선합니다.</p>
-            </article>
-            <article class="feature-card">
-              <h3>품질 감각</h3>
-              <p>반응형 UI, 접근성, 릴리즈 안정성을 함께 확인하는 습관을 반영합니다.</p>
-            </article>
-          </div>
-        </div>
+      text-shadow:
+        0 0 15px #ffffff80,
+        0 0 35px #6a8cff70,
+        0 0 65px #526aff50;
 
-        <aside class="info-card">
-          <h3>기본 정보</h3>
-          <ul class="plain-list">
-            <li>이름: Android Developer Portfolio</li>
-            <li>소개: 안드로이드 개발자 포트폴리오 초안</li>
-            <li>경력: 앱 UI, 상태 관리, 릴리즈 안정성 중심의 실무 경험을 정리하는 영역</li>
-            <li>주요 관심사: 앱 UI, 상태 관리, 안정적인 배포</li>
-          </ul>
-        </aside>
-      </section>
-    </main>
+      transition: transform 0.2s;
+    }
 
-    <footer class="site-footer" id="contact">
-      <div class="footer-flow">
-        <p class="section-label">Contact</p>
-        <h2>연락처</h2>
-        <p class="footer-note">
-          안드로이드 개발, 협업, 유지보수, 포트폴리오 피드백 문의는 아래로 남겨 주세요.
-        </p>
-        <p class="footer-contact-line"><span class="footer-symbol" aria-hidden="true">M</span>Email : <a href="mailto:kublaihkan@gmail.com">kublaihkan@gmail.com</a></p>
-        <p class="footer-contact-line"><span class="footer-symbol" aria-hidden="true">G</span>GitHub : <a href="https://github.com/ToLoad">https://github.com/ToLoad</a></p>
-        <p class="footer-copy">© 2026 ToLoad · Android Developer Portfolio</p>
-      </div>
-    </footer>
-  </body>
+    .welcome:hover {
+      transform: scale(1.05);
+    }
+
+    .welcome span {
+      display: inline-block;
+    }
+
+    .hint {
+      position: fixed;
+      bottom: 50px;
+      color: #94a3c0;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="welcome" id="welcome">
+    <span>W</span>
+    <span>e</span>
+    <span>l</span>
+    <span>c</span>
+    <span>o</span>
+    <span>m</span>
+    <span>e</span>
+  </div>
+
+  <p class="hint">Click Welcome ✨</p>
+
+  <canvas id="fireworks"></canvas>
+
+  <script>
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    const welcome = document.getElementById("welcome");
+    const letters = welcome.querySelectorAll("span");
+
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // 폭죽 색상
+    const colors = [
+      "#ff4d6d",
+      "#ffbe0b",
+      "#3a86ff",
+      "#8338ec",
+      "#06d6a0",
+      "#ff70a6",
+      "#ffffff"
+    ];
+
+    // 폭죽 입자
+    class Particle {
+      constructor(x, y, color, angle, speed) {
+        this.x = x;
+        this.y = y;
+
+        this.color = color;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+
+        this.alpha = 1;
+        this.gravity = 0.045;
+        this.friction = 0.98;
+        this.radius = Math.random() * 2 + 1;
+
+        this.history = [];
+      }
+
+      update() {
+        this.history.push({
+          x: this.x,
+          y: this.y
+        });
+
+        if (this.history.length > 6) {
+          this.history.shift();
+        }
+
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+        this.vy += this.gravity;
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        this.alpha -= 0.013;
+      }
+
+      draw() {
+        ctx.save();
+
+        ctx.globalAlpha = Math.max(this.alpha, 0);
+        ctx.strokeStyle = this.color;
+        ctx.fillStyle = this.color;
+
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+
+        // 빛의 꼬리
+        if (this.history.length > 1) {
+          ctx.beginPath();
+
+          ctx.moveTo(
+            this.history[0].x,
+            this.history[0].y
+          );
+
+          for (const point of this.history) {
+            ctx.lineTo(point.x, point.y);
+          }
+
+          ctx.lineWidth = this.radius;
+          ctx.stroke();
+        }
+
+        // 반짝이는 입자
+        ctx.beginPath();
+        ctx.arc(
+          this.x,
+          this.y,
+          this.radius,
+          0,
+          Math.PI * 2
+        );
+        ctx.fill();
+
+        ctx.restore();
+      }
+    }
+
+    // 특정 좌표에서 폭죽 터뜨리기
+    function createFirework(x, y, color) {
+      const count = 90;
+
+      for (let i = 0; i < count; i++) {
+        const angle =
+          (Math.PI * 2 * i) / count +
+          (Math.random() - 0.5) * 0.15;
+
+        const speed = Math.random() * 5 + 2;
+
+        particles.push(
+          new Particle(
+            x,
+            y,
+            color,
+            angle,
+            speed
+          )
+        );
+      }
+    }
+
+    // Welcome 글자 클릭
+    welcome.addEventListener("click", () => {
+
+      letters.forEach((letter, index) => {
+
+        const rect = letter.getBoundingClientRect();
+
+        // 각 글자의 중앙 좌표
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+
+        // 왼쪽 글자부터 순서대로 폭죽 발생
+        setTimeout(() => {
+          createFirework(
+            x,
+            y,
+            colors[index % colors.length]
+          );
+        }, index * 80);
+
+      });
+
+    });
+
+    // 애니메이션
+    function animate() {
+      requestAnimationFrame(animate);
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      ctx.globalCompositeOperation = "lighter";
+
+      particles.forEach((particle, index) => {
+        particle.update();
+        particle.draw();
+
+        if (particle.alpha <= 0) {
+          particles.splice(index, 1);
+        }
+      });
+
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    animate();
+  </script>
+
+</body>
 </html>
