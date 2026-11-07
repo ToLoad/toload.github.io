@@ -1,280 +1,230 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-  <title>Welcome Fireworks</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-  <style>
+<title>Welcome Fireworks</title>
+
+<style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+        box-sizing: border-box;
     }
 
     body {
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      background: radial-gradient(
-        ellipse at center,
-        #182446 0%,
-        #080d20 65%,
-        #030510 100%
-      );
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        background: radial-gradient(
+            circle,
+            #172342 0%,
+            #080e1f 65%,
+            #030610 100%
+        );
+
+        font-family: Arial, sans-serif;
     }
 
     canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
     }
 
-    .welcome {
-      display: flex;
-      justify-content: center;
-      cursor: pointer;
-      user-select: none;
-      position: relative;
-      z-index: 1;
+    #welcome {
+        position: relative;
+        z-index: 1;
 
-      font-size: clamp(45px, 12vw, 120px);
-      font-weight: bold;
-      color: white;
+        border: none;
+        background: transparent;
 
-      text-shadow:
-        0 0 15px #ffffff80,
-        0 0 35px #6a8cff70,
-        0 0 65px #526aff50;
+        font-size: clamp(48px, 12vw, 110px);
+        font-weight: bold;
+        color: white;
 
-      transition: transform 0.2s;
-    }
+        cursor: pointer;
+        user-select: none;
 
-    .welcome:hover {
-      transform: scale(1.05);
-    }
-
-    .welcome span {
-      display: inline-block;
+        text-shadow:
+            0 0 18px rgba(132,166,255,0.55);
     }
 
     .hint {
-      position: fixed;
-      bottom: 50px;
-      color: #94a3c0;
-      font-size: 14px;
-      letter-spacing: 2px;
+        position: fixed;
+        bottom: 40px;
+        color: #9aa8c9;
+        font-size: 13px;
     }
-  </style>
+</style>
 </head>
 
 <body>
 
-  <div class="welcome" id="welcome">
-    <span>W</span>
-    <span>e</span>
-    <span>l</span>
-    <span>c</span>
-    <span>o</span>
-    <span>m</span>
-    <span>e</span>
-  </div>
+<button id="welcome">Welcome</button>
 
-  <p class="hint">Click Welcome ✨</p>
+<canvas id="fireworks"></canvas>
 
-  <canvas id="fireworks"></canvas>
+<p class="hint">
+    Welcome을 눌러보세요 ✨
+</p>
 
-  <script>
-    const canvas = document.getElementById("fireworks");
-    const ctx = canvas.getContext("2d");
-    const welcome = document.getElementById("welcome");
-    const letters = welcome.querySelectorAll("span");
+<script>
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+const welcome = document.getElementById("welcome");
 
-    let particles = [];
+let particles = [];
+let running = false;
+let previousTime = 0;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+const colors = [
+    "#ff718c",
+    "#ffd36e",
+    "#6fdcff",
+    "#b6a0ff",
+    "#75f3c8"
+];
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+// 캔버스 크기 설정
+function resizeCanvas() {
+    const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        1.5
+    );
 
-    // 폭죽 색상
-    const colors = [
-      "#ff4d6d",
-      "#ffbe0b",
-      "#3a86ff",
-      "#8338ec",
-      "#06d6a0",
-      "#ff70a6",
-      "#ffffff"
-    ];
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
 
-    // 폭죽 입자
-    class Particle {
-      constructor(x, y, color, angle, speed) {
-        this.x = x;
-        this.y = y;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
 
-        this.color = color;
-        this.vx = Math.cos(angle) * speed;
-        this.vy = Math.sin(angle) * speed;
+resizeCanvas();
 
-        this.alpha = 1;
-        this.gravity = 0.045;
-        this.friction = 0.98;
-        this.radius = Math.random() * 2 + 1;
+window.addEventListener("resize", resizeCanvas);
 
-        this.history = [];
-      }
+// 폭죽 생성
+function createFirework() {
 
-      update() {
-        this.history.push({
-          x: this.x,
-          y: this.y
+    const rect = welcome.getBoundingClientRect();
+
+    // Welcome 글자의 정중앙
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    // 이전 입자 제거 (렉 방지)
+    particles = [];
+
+    // 폭죽 입자 55개
+    const count = 55;
+
+    for (let i = 0; i < count; i++) {
+
+        const angle = Math.random() * Math.PI * 2;
+
+        const speed = Math.random() * 3 + 1.5;
+
+        const life = Math.random() * 20 + 35;
+
+        particles.push({
+            x: x,
+            y: y,
+
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+
+            life: life,
+            maxLife: life,
+
+            color: colors[i % colors.length]
         });
+    }
 
-        if (this.history.length > 6) {
-          this.history.shift();
+    if (!running) {
+        running = true;
+        previousTime = 0;
+        requestAnimationFrame(animate);
+    }
+}
+
+// 폭죽 애니메이션
+function animate(time) {
+
+    const dt = previousTime
+        ? Math.min((time - previousTime) / 16.67, 2)
+        : 1;
+
+    previousTime = time;
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+
+        const p = particles[i];
+
+        // 마찰력
+        p.vx *= Math.pow(0.982, dt);
+        p.vy *= Math.pow(0.982, dt);
+
+        // 중력
+        p.vy += 0.035 * dt;
+
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+
+        p.life -= dt;
+
+        if (p.life <= 0) {
+            particles.splice(i, 1);
+            continue;
         }
 
-        this.vx *= this.friction;
-        this.vy *= this.friction;
-        this.vy += this.gravity;
+        ctx.globalAlpha = p.life / p.maxLife;
+        ctx.strokeStyle = p.color;
+        ctx.lineWidth = 2;
 
-        this.x += this.vx;
-        this.y += this.vy;
-
-        this.alpha -= 0.013;
-      }
-
-      draw() {
-        ctx.save();
-
-        ctx.globalAlpha = Math.max(this.alpha, 0);
-        ctx.strokeStyle = this.color;
-        ctx.fillStyle = this.color;
-
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = this.color;
-
-        // 빛의 꼬리
-        if (this.history.length > 1) {
-          ctx.beginPath();
-
-          ctx.moveTo(
-            this.history[0].x,
-            this.history[0].y
-          );
-
-          for (const point of this.history) {
-            ctx.lineTo(point.x, point.y);
-          }
-
-          ctx.lineWidth = this.radius;
-          ctx.stroke();
-        }
-
-        // 반짝이는 입자
+        // 짧은 불꽃 꼬리
         ctx.beginPath();
-        ctx.arc(
-          this.x,
-          this.y,
-          this.radius,
-          0,
-          Math.PI * 2
+
+        ctx.moveTo(
+            p.x - p.vx * 2,
+            p.y - p.vy * 2
         );
-        ctx.fill();
 
-        ctx.restore();
-      }
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
     }
 
-    // 특정 좌표에서 폭죽 터뜨리기
-    function createFirework(x, y, color) {
-      const count = 90;
+    ctx.globalAlpha = 1;
 
-      for (let i = 0; i < count; i++) {
-        const angle =
-          (Math.PI * 2 * i) / count +
-          (Math.random() - 0.5) * 0.15;
-
-        const speed = Math.random() * 5 + 2;
-
-        particles.push(
-          new Particle(
-            x,
-            y,
-            color,
-            angle,
-            speed
-          )
-        );
-      }
+    // 입자가 있을 때만 애니메이션 실행
+    if (particles.length > 0) {
+        requestAnimationFrame(animate);
+    } else {
+        running = false;
+        previousTime = 0;
     }
+}
 
-    // Welcome 글자 클릭
-    welcome.addEventListener("click", () => {
+// Welcome 클릭 이벤트
+welcome.addEventListener(
+    "click",
+    createFirework
+);
 
-      letters.forEach((letter, index) => {
-
-        const rect = letter.getBoundingClientRect();
-
-        // 각 글자의 중앙 좌표
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-
-        // 왼쪽 글자부터 순서대로 폭죽 발생
-        setTimeout(() => {
-          createFirework(
-            x,
-            y,
-            colors[index % colors.length]
-          );
-        }, index * 80);
-
-      });
-
-    });
-
-    // 애니메이션
-    function animate() {
-      requestAnimationFrame(animate);
-
-      ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      ctx.globalCompositeOperation = "lighter";
-
-      particles.forEach((particle, index) => {
-        particle.update();
-        particle.draw();
-
-        if (particle.alpha <= 0) {
-          particles.splice(index, 1);
-        }
-      });
-
-      ctx.globalCompositeOperation = "source-over";
-    }
-
-    animate();
-  </script>
+</script>
 
 </body>
 </html>
